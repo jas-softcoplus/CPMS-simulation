@@ -20,7 +20,7 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Virtual OCPP-J 1.6 charging stations
+            Virtual OCPP-J 2.0 charging stations
           </Typography>
         </Toolbar>
       </AppBar>

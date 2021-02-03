@@ -54,6 +54,9 @@ export class StationsService {
     }
   }
 
+
+
+
   async connectAllStationsToCentralSystem() {
     let dbStations: Station[] = [];
     try {
@@ -63,6 +66,7 @@ export class StationsService {
     }
 
     // remove closing / closed sockets
+   
     this.connectedStationsClients.forEach(client => {
       if (client.readyState !== WebSocketReadyStates.CONNECTING && client.readyState !== WebSocketReadyStates.OPEN) {
         this.connectedStationsClients.delete(client);
@@ -75,6 +79,9 @@ export class StationsService {
 
     unconnectedStations.forEach(station => this.connectStationToCentralSystem(station));
   }
+
+
+
 
   async sendStationOperationRequest(id: number, operationName: string, stationOperationDto: StationOperationDto) {
     const station = await this.getStationById(id);
