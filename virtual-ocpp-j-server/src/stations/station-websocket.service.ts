@@ -20,20 +20,20 @@ import { RemoteStartStopStatusEnum } from '../models/RemoteStartStopStatusEnum';
 @Injectable()
 export class StationWebSocketService {
   private logger = new Logger(StationWebSocketService.name);
-  
-  
+
+
   constructor(
     @InjectRepository(StationRepository)
     private stationRepository: StationRepository,
     private byChargePointOperationMessageGenerator: ByChargePointOperationMessageGenerator,
-  ) {}
+  ) { }
 
   public createStationWebSocket = (station: Station): StationWebSocketClient => {
     let wsClient: StationWebSocketClient;
     const protocols = 'ocpp1.6';
     try {
       wsClient = new StationWebSocketClient(`${station.centralSystemUrl}/${station.identity}`, protocols);
-      
+
     } catch (error) {
       this.logger.log(`Error connecting for station ${station.identity}: ${error?.message ?? ''}`);
       return null;
