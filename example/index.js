@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 var bodyParser = require('body-parser')
-const transectionModel = require('./model/Transection');
+const path = require('path');
 
+const transectionModel = require('./model/Transection');
 const utils = require('./utils');
 
 const wss = new WebSocket.Server({ port: 8080 }, ['ocpp1.6']);
@@ -156,6 +157,11 @@ wss.on('error', (err) => {
 })
 
 
+app.get('/', async (req, res) => {
+    res.sendFile('./client/index.html', {root: __dirname })
+
+})
+
 
 app.post('/changeProfile', async (req, res, next) => {
     try {
@@ -165,12 +171,14 @@ app.post('/changeProfile', async (req, res, next) => {
         const transection = await transectionModel.findOne({ 'response.transactionId': transectionId }).lean();
         if (!!!transection) return res.status(400).json({ message: 'Transection Not Found' });
 
-        
+
 
     } catch (err) {
         console.log(err);
     }
 })
+
+app.listen(process.env.PORT || 4000);
 
 
 
